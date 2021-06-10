@@ -45,4 +45,13 @@ class LancheController(@Inject val service: LancheService) {
         return HttpResponse.ok(service.atualizar(form,possivelLanche.get()))
     }
 
+    @Delete("/{id}")
+    @Transactional
+    fun deletarLanche(@PathVariable id:Long): MutableHttpResponse<String> {
+        val possivelLanche = service.listaPorId(id)
+        if(possivelLanche.isEmpty) return HttpResponse.notFound()
+        service.deletar(id)
+        return HttpResponse.ok("Lanche de id $id deletado")
+    }
+
 }

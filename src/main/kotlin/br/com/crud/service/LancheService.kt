@@ -28,4 +28,8 @@ class LancheService(@Inject val repository: LancheRepository){
         return repository.findById(id)
     }
 
+    fun deletar(id: Long) {
+        return repository.deleteById(id)
+    }
+
 }
