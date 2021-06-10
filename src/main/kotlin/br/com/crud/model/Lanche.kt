@@ -1,6 +1,6 @@
 package br.com.crud.model
 
-import br.com.crud.dto.CriaLancheDto
+import br.com.crud.dto.LancheDto
 import java.math.BigDecimal
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
@@ -26,7 +26,7 @@ class Lanche(
         return "Lanche(nome='$nome', ingredientes=$ingredientes, preco=$preco, id=$id)"
     }
 
-    fun atualiza(dto: CriaLancheDto){
+    fun atualiza(dto: LancheDto){
         this.ingredientes = dto.ingredientes
         this.nome = dto.nome
         this.preco = dto.preco

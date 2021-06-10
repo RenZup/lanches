@@ -1,6 +1,6 @@
 package br.com.crud.controller
 
-import br.com.crud.dto.CriaLancheDto
+import br.com.crud.dto.LancheDto
 import br.com.crud.model.Lanche
 import br.com.crud.service.LancheService
 import io.micronaut.http.HttpResponse
@@ -18,7 +18,7 @@ class LancheController(@Inject val service: LancheService) {
 
     @Post
     @Transactional
-    fun cadastraLanche(@Body @Valid form: CriaLancheDto): Lanche {
+    fun cadastraLanche(@Body @Valid form: LancheDto): Lanche {
         return service.cadastrar(form)
     }
     @Get
@@ -38,7 +38,7 @@ class LancheController(@Inject val service: LancheService) {
 
     @Put("/{id}")
     @Transactional
-    fun atualizarLanche(@PathVariable id:Long, @Body @Valid form: CriaLancheDto):MutableHttpResponse<Lanche>?{
+    fun atualizarLanche(@PathVariable id:Long, @Body @Valid form: LancheDto):MutableHttpResponse<Lanche>?{
         val possivelLanche = service.listaPorId(id)
         if(possivelLanche.isEmpty) return HttpResponse.notFound()
 

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 @Introspected
-data class CriaLancheDto(
+data class LancheDto(
     @field:NotBlank
     val nome: String,
     @field:NotBlank

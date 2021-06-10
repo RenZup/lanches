@@ -1,6 +1,6 @@
 package br.com.crud.service
 
-import br.com.crud.dto.CriaLancheDto
+import br.com.crud.dto.LancheDto
 import br.com.crud.model.Lanche
 import br.com.crud.repository.LancheRepository
 import io.micronaut.validation.Validated
@@ -12,14 +12,14 @@ import javax.validation.Valid
 @Singleton
 @Validated
 class LancheService(@Inject val repository: LancheRepository){
-    fun cadastrar(@Valid lanche: CriaLancheDto): Lanche {
+    fun cadastrar(@Valid lanche: LancheDto): Lanche {
 
         return repository.save(lanche.toModel())
     }
     fun listar(): List<Lanche> {
         return repository.findAll().toList()
     }
-    fun atualizar(form:CriaLancheDto,lanche:Lanche): Lanche {
+    fun atualizar(form:LancheDto, lanche:Lanche): Lanche {
         lanche.atualiza(form)
         return repository.update(lanche)
     }
