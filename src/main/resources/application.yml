@@ -7,4 +7,11 @@ datasources:
     driverClassName: org.h2.Driver
     username: sa
     password: ''
-jpa.default.properties.hibernate.hbm2ddl.auto: update
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
+
