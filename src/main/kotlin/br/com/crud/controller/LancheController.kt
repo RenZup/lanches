@@ -14,7 +14,7 @@ import javax.validation.Valid
 
 @Controller("/lanches")
 @Validated
-class LancheController(@Inject val service: LancheService) {
+class LancheController(@Inject private val service: LancheService) {
 
     @Post
     @Transactional
