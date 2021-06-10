@@ -1,5 +1,6 @@
 package br.com.crud.model
 
+import br.com.crud.dto.CriaLancheDto
 import java.math.BigDecimal
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
@@ -9,13 +10,13 @@ import javax.validation.constraints.NotNull
 class Lanche(
     @Column(nullable = false)
     @field:NotBlank
-    val nome: String,
+    var nome: String,
     @Column(nullable = false)
     @field:NotBlank
-    val ingredientes: String,
+    var ingredientes: String,
     @Column(nullable = false)
     @field:NotNull
-    val preco: BigDecimal
+    var preco: BigDecimal
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +26,10 @@ class Lanche(
         return "Lanche(nome='$nome', ingredientes=$ingredientes, preco=$preco, id=$id)"
     }
 
+    fun atualiza(dto: CriaLancheDto){
+        this.ingredientes = dto.ingredientes
+        this.nome = dto.nome
+        this.preco = dto.preco
+    }
 
 }

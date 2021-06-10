@@ -2,30 +2,47 @@ package br.com.crud.controller
 
 import br.com.crud.dto.CriaLancheDto
 import br.com.crud.model.Lanche
-import br.com.crud.service.CadastraLancheService
-import br.com.crud.service.ListaLancheService
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
+import br.com.crud.service.LancheService
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.MutableHttpResponse
+import io.micronaut.http.annotation.*
 import io.micronaut.validation.Validated
-import java.net.http.HttpResponse
+
 import javax.inject.Inject
 import javax.transaction.Transactional
 import javax.validation.Valid
 
 @Controller("/lanches")
 @Validated
-class LancheController(@Inject val cadastraLancheService: CadastraLancheService,
-                       @Inject val listaLancheService: ListaLancheService) {
+class LancheController(@Inject val service: LancheService) {
 
     @Post
     @Transactional
     fun cadastraLanche(@Body @Valid form: CriaLancheDto): Lanche {
-        return cadastraLancheService.cadastrar(form)
+        return service.cadastrar(form)
     }
     @Get
     fun mostraCardapio(): List<Lanche> {
-        return listaLancheService.listar()
+        return service.listar()
     }
+
+    @Get("/{id}")
+    fun mostraLanchePorId(@PathVariable id: Long): MutableHttpResponse<Lanche>? {
+        val possivelLanche = service.listaPorId(id)
+        if(possivelLanche.isEmpty){
+            return HttpResponse.notFound()
+        }
+        return HttpResponse.ok(possivelLanche.get())
+
+    }
+
+    @Put("/{id}")
+    @Transactional
+    fun atualizarLanche(@PathVariable id:Long, @Body @Valid form: CriaLancheDto):MutableHttpResponse<Lanche>?{
+        val possivelLanche = service.listaPorId(id)
+        if(possivelLanche.isEmpty) return HttpResponse.notFound()
+
+        return HttpResponse.ok(service.atualizar(form,possivelLanche.get()))
+    }
+
 }
