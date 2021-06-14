@@ -1,6 +1,6 @@
 package br.com.crud.repository
 
-import br.com.crud.model.Lanche
+import br.com.crud.entity.Lanche
 import io.micronaut.data.annotation.Repository
 import io.micronaut.data.jpa.repository.JpaRepository
 

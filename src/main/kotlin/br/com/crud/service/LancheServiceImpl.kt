@@ -1,18 +1,14 @@
 package br.com.crud.service
 
 import br.com.crud.dto.LancheDto
-import br.com.crud.model.Lanche
+import br.com.crud.entity.Lanche
 import br.com.crud.repository.LancheRepository
-import io.micronaut.validation.Validated
 import java.util.*
-import javax.inject.Inject
 import javax.inject.Singleton
-import javax.validation.Valid
 
 @Singleton
-@Validated
-class LancheServiceImpl(@Inject val repository: LancheRepository): LancheService{
-    override fun cadastrar(@Valid lanche: LancheDto): Lanche {
+class LancheServiceImpl(val repository: LancheRepository): LancheService{
+    override fun cadastrar(lanche: LancheDto): Lanche {
 
         return repository.save(lanche.toModel())
     }

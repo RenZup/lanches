@@ -1,7 +1,7 @@
 package br.com.crud.controller
 
 import br.com.crud.dto.LancheDto
-import br.com.crud.model.Lanche
+import br.com.crud.entity.Lanche
 import br.com.crud.repository.LancheRepository
 import io.micronaut.http.HttpStatus
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest

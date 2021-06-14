@@ -1,6 +1,6 @@
 package br.com.crud.dto
 
-import br.com.crud.model.Lanche
+import br.com.crud.entity.Lanche
 import io.micronaut.core.annotation.Introspected
 import java.math.BigDecimal
 import javax.validation.constraints.NotBlank
