@@ -42,6 +42,7 @@ dependencies {
 
     annotationProcessor("io.micronaut.data:micronaut-data-processor:2.4.3")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa:2.4.3")
+    implementation("io.micronaut:micronaut-management")
 }
 
 

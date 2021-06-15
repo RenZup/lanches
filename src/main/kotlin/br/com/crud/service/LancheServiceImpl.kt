@@ -7,7 +7,7 @@ import java.util.*
 import javax.inject.Singleton
 
 @Singleton
-class LancheServiceImpl(val repository: LancheRepository): LancheService{
+class LancheServiceImpl(private val repository: LancheRepository): LancheService{
     override fun cadastrar(lanche: LancheDto): Lanche {
 
         return repository.save(lanche.toModel())
