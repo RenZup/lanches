@@ -25,7 +25,7 @@ class LancheServiceImpl(private val repository: LancheRepository): LancheService
     }
 
     override fun deletar(id: Long) {
-        return repository.deleteById(id)
+        repository.deleteById(id)
     }
 
 }

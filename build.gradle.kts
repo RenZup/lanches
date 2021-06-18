@@ -17,7 +17,7 @@ repositories {
 
 micronaut {
     runtime("netty")
-    testRuntime("junit5")
+    testRuntime("kotest")
     processing {
         incremental(true)
         annotations("br.com.crud.*")
