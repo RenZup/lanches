@@ -7,6 +7,7 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.*
 import io.micronaut.validation.Validated
+import java.util.*
 
 import javax.transaction.Transactional
 import javax.validation.Valid
@@ -27,7 +28,7 @@ class LancheController(private val service: LancheService) {
     }
 
     @Get("/{id}")
-    fun mostraLanchePorId(@PathVariable id: Long): MutableHttpResponse<Lanche>{
+    fun mostraLanchePorId(@PathVariable id: UUID): MutableHttpResponse<Lanche>{
         val possivelLanche = service.listaPorId(id)
         if(possivelLanche.isEmpty){
             return HttpResponse.notFound()
@@ -37,7 +38,7 @@ class LancheController(private val service: LancheService) {
     }
 
     @Put("/{id}")
-    fun atualizarLanche(@PathVariable id:Long, @Body @Valid form: LancheDto):MutableHttpResponse<Lanche>{
+    fun atualizarLanche(@PathVariable id:UUID, @Body @Valid form: LancheDto):MutableHttpResponse<Lanche>{
         val possivelLanche = service.listaPorId(id)
         if(possivelLanche.isEmpty) return HttpResponse.notFound()
 
@@ -45,7 +46,7 @@ class LancheController(private val service: LancheService) {
     }
 
     @Delete("/{id}")
-    fun deletarLanche(@PathVariable id:Long): MutableHttpResponse<String> {
+    fun deletarLanche(@PathVariable id:UUID): MutableHttpResponse<String> {
         val possivelLanche = service.listaPorId(id)
         if(possivelLanche.isEmpty) return HttpResponse.notFound()
         service.deletar(id)

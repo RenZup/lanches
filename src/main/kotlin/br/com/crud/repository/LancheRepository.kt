@@ -8,7 +8,7 @@ import javax.inject.Singleton
 interface LancheRepository{
     fun save(lanche: Lanche): Lanche
     fun findAll():List<Lanche>
-    fun findById(id:Long): Optional<Lanche>
-    fun deleteById(id:Long)
+    fun findById(id:UUID): Optional<Lanche>
+    fun deleteById(id:UUID)
     fun update(lanche:Lanche): Lanche
 }

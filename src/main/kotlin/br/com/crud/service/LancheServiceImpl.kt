@@ -21,11 +21,11 @@ class LancheServiceImpl(private val repository: LancheRepository): LancheService
         return repository.update(lanche)
     }
 
-    override fun listaPorId(id:Long): Optional<Lanche> {
+    override fun listaPorId(id:UUID): Optional<Lanche> {
         return repository.findById(id)
     }
 
-    override fun deletar(id: Long) {
+    override fun deletar(id: UUID) {
         repository.deleteById(id)
     }
 

@@ -1,7 +1,9 @@
 package br.com.crud.repository
 
 import br.com.crud.entity.Lanche
+import com.datastax.oss.driver.api.core.CqlIdentifier
 import com.datastax.oss.driver.api.core.CqlSession
+import com.datastax.oss.driver.api.core.cql.Row
 import com.datastax.oss.driver.api.core.cql.SimpleStatement
 import java.util.*
 import javax.inject.Singleton
@@ -23,19 +25,65 @@ class LancheRepositoryImpl(private val cqlSession: CqlSession): LancheRepository
     }
 
     override fun findAll(): List<Lanche> {
-        TODO("Not yet implemented")
+        val result = cqlSession.execute(
+            SimpleStatement
+                .newInstance(
+                    "SELECT * FROM mydata.lanche"
+                )
+        )
+
+        val response:MutableList<Lanche> = ArrayList<Lanche>()
+        for (row: Row in result){
+            val id:UUID = row.getUuid("id") ?: UUID.randomUUID()
+            val nome:String =row.getString("nome") ?: ""
+            val ingredientes:String =row.getString("ingredientes") ?: ""
+            val preco:Double =row.getDouble("preco")
+            response.add(Lanche(nome = nome,ingredientes= ingredientes,id = id,preco = preco))
+        }
+        return response
     }
 
-    override fun findById(id: Long): Optional<Lanche> {
-        TODO("Not yet implemented")
+    override fun findById(id: UUID): Optional<Lanche> {
+        val result = cqlSession.execute(
+            SimpleStatement
+                .newInstance(
+                    "SELECT * FROM mydata.lanche WHERE id = ?", id
+                )
+        )
+
+       val response:MutableList<Optional<Lanche>> = ArrayList<Optional<Lanche>>()
+        for (row: Row in result){
+            val uuid:UUID = row.getUuid("id") ?: UUID.randomUUID()
+            val nome:String =row.getString("nome") ?: ""
+            val ingredientes:String =row.getString("ingredientes") ?: ""
+            val preco:Double =row.getDouble("preco")
+            response.add(Optional.of(Lanche(nome = nome,ingredientes= ingredientes,id = uuid,preco = preco)))
+        }
+        if(response.isEmpty()){
+            return Optional.empty()
+        }
+        return response.get(0)
     }
 
-    override fun deleteById(id: Long) {
-        TODO("Not yet implemented")
+    override fun deleteById(id: UUID) {
+            cqlSession.execute(
+                SimpleStatement
+                    .newInstance(
+                        "DELETE FROM mydata.lanche WHERE id = ?", id
+                    )
+            )
     }
 
     override fun update(lanche: Lanche): Lanche {
-        TODO("Not yet implemented")
+        cqlSession.execute(
+            SimpleStatement
+                .newInstance("UPDATE mydata.lanche SET " +
+                        "nome = ?" +
+                        ",ingredientes = ?" +
+                        ",preco = ?" +
+                        "WHERE id = ? IF EXISTS",lanche.nome,lanche.ingredientes,lanche.preco,lanche.id)
+        )
+        return lanche
     }
 
 }

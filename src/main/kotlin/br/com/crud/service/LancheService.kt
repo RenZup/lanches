@@ -9,6 +9,6 @@ interface LancheService {
     fun cadastrar(lanche: LancheDto): Lanche
     fun listar(): List<Lanche>
     fun atualizar(form: LancheDto, lanche: Lanche): Lanche
-    fun listaPorId(id:Long): Optional<Lanche>
-    fun deletar(id: Long)
+    fun listaPorId(id:UUID): Optional<Lanche>
+    fun deletar(id: UUID)
 }
