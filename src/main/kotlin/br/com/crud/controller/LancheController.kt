@@ -16,7 +16,6 @@ import javax.validation.Valid
 class LancheController(private val service: LancheService) {
 
     @Post
-    @Transactional
     fun cadastraLanche(@Body @Valid form: LancheDto): MutableHttpResponse<Lanche> {
         val lanche = service.cadastrar(form)
         val uri = HttpResponse.uri("/lanches/${lanche.id}")
@@ -38,7 +37,6 @@ class LancheController(private val service: LancheService) {
     }
 
     @Put("/{id}")
-    @Transactional
     fun atualizarLanche(@PathVariable id:Long, @Body @Valid form: LancheDto):MutableHttpResponse<Lanche>{
         val possivelLanche = service.listaPorId(id)
         if(possivelLanche.isEmpty) return HttpResponse.notFound()
@@ -47,7 +45,6 @@ class LancheController(private val service: LancheService) {
     }
 
     @Delete("/{id}")
-    @Transactional
     fun deletarLanche(@PathVariable id:Long): MutableHttpResponse<String> {
         val possivelLanche = service.listaPorId(id)
         if(possivelLanche.isEmpty) return HttpResponse.notFound()

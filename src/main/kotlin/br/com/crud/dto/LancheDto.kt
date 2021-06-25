@@ -13,7 +13,7 @@ data class LancheDto(
     @field:NotBlank
     val ingredientes: String,
     @field:NotNull
-    val preco: BigDecimal
+    val preco: Double
 ) {
 fun toModel(): Lanche{
     return Lanche(nome,ingredientes,preco)

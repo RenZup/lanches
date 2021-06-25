@@ -3,6 +3,7 @@ package br.com.crud.service
 import br.com.crud.dto.LancheDto
 import br.com.crud.entity.Lanche
 import br.com.crud.repository.LancheRepository
+import br.com.crud.repository.LancheRepositoryImpl
 import java.util.*
 import javax.inject.Singleton
 

@@ -1,9 +1,14 @@
 package br.com.crud.repository
 
 import br.com.crud.entity.Lanche
-import io.micronaut.data.annotation.Repository
-import io.micronaut.data.jpa.repository.JpaRepository
+import java.util.*
+import javax.inject.Singleton
 
-@Repository
-interface LancheRepository: JpaRepository<Lanche,Long>{
+@Singleton
+interface LancheRepository{
+    fun save(lanche: Lanche): Lanche
+    fun findAll():List<Lanche>
+    fun findById(id:Long): Optional<Lanche>
+    fun deleteById(id:Long)
+    fun update(lanche:Lanche): Lanche
 }

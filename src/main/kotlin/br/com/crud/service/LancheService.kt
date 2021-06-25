@@ -3,7 +3,8 @@ package br.com.crud.service
 import br.com.crud.dto.LancheDto
 import br.com.crud.entity.Lanche
 import java.util.*
-
+import javax.inject.Singleton
+@Singleton
 interface LancheService {
     fun cadastrar(lanche: LancheDto): Lanche
     fun listar(): List<Lanche>
