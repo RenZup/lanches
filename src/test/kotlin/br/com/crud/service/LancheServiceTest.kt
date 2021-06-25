@@ -21,8 +21,8 @@ class LancheServiceTest: AnnotationSpec() {
     lateinit var lanche: Lanche
     @BeforeEach
     fun setUp(){
-        dto = LancheDto("X-Tudo","Tudo", BigDecimal(21.99))
-        lanche = dto.toModel()
+        dto = LancheDto("X-Tudo","Tudo", 21.99)
+        lanche = Lanche(dto.nome,dto.ingredientes,dto.preco, UUID.randomUUID())
     }
 
     @Test
@@ -51,7 +51,7 @@ class LancheServiceTest: AnnotationSpec() {
     @Test
     fun `deve atualizar um lanche`(){
         //cenario
-        val lanche2 = LancheDto("X","X sem tudo", BigDecimal.ONE)
+        val lanche2 = LancheDto("X","X sem tudo", 1.0)
         every{repository.update(any())} answers {lanche2.toModel()}
         //acao
         val atualizar: Lanche = service.atualizar(lanche2, lanche)
@@ -63,9 +63,9 @@ class LancheServiceTest: AnnotationSpec() {
     fun `deve listar por um id existente`(){
         //cenario
         val possivelLanche: Optional<Lanche> = Optional.of(lanche)
-        every{repository.findById(1)} answers {possivelLanche}
+        every{repository.findById(lanche.id!!)} answers {possivelLanche}
         //acao
-        val listaPorId = service.listaPorId(1)
+        val listaPorId = service.listaPorId(lanche.id!!)
         //validacao
         listaPorId shouldBe possivelLanche
         listaPorId.get() shouldBe lanche
@@ -75,9 +75,9 @@ class LancheServiceTest: AnnotationSpec() {
     fun`deve listar por um id inexistente`(){
         //cenario
         val possivelLanche: Optional<Lanche> = Optional.empty()
-        every{repository.findById(1)} answers {possivelLanche}
+        every{repository.findById(any())} answers {possivelLanche}
         //acao
-        val listaPorId = service.listaPorId(1)
+        val listaPorId = service.listaPorId(lanche.id!!)
         //validacao
         listaPorId shouldBe possivelLanche
         listaPorId.isEmpty shouldBe true
